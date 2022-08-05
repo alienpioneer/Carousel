@@ -70,10 +70,10 @@ void RectangleWidget::mouseReleaseEvent(QMouseEvent *event)
 
 void RectangleWidget::mouseMoveEvent(QMouseEvent *event)
 {
-    //Q_UNUSED(event);
+    Q_UNUSED(event);
 //    setUpdatesEnabled(false);
-    if (m_isMovable)
-        move(mapToParent(event->pos() - m_mousePressOffset));
-     qDebug() << "RectangleWidget moved" << m_id;
+//    if (m_isMovable)
+//        move(mapToParent(event->pos() - m_mousePressOffset));
+//     qDebug() << "RectangleWidget moved" << m_id;
 }
 

@@ -33,12 +33,14 @@ QWidget* SingleLevelCarousel::createSynopticView()
     m_synopticRightBtn = new QPushButton();
     m_synopticRightBtn->setFixedSize(SYNOPTIC_BUTTON_WIDTH, height());
     m_synopticRightBtn->setIcon(QIcon(":/carousel_move_right.png"));
+    m_synopticRightBtn->setIconSize(QSize(40,40));
     m_synopticRightBtn->setStyleSheet("background-color: transparent; border: 1px");
     connect(m_synopticRightBtn, &QPushButton::clicked, this, &SingleLevelCarousel::on_synopticRightBtnClicked);
 
     m_synopticLeftBtn = new QPushButton();
     m_synopticLeftBtn->setFixedSize(SYNOPTIC_BUTTON_WIDTH, height());
     m_synopticLeftBtn->setIcon(QIcon(":/carousel_move_left.png"));
+    m_synopticLeftBtn->setIconSize(QSize(40,40));
     m_synopticLeftBtn->setStyleSheet("background-color: transparent; border: 1px");
     connect(m_synopticLeftBtn, &QPushButton::clicked, this, &SingleLevelCarousel::on_synopticLeftBtnClicked);
     m_synopticLeftBtn->hide();
@@ -60,7 +62,7 @@ QWidget* SingleLevelCarousel::createSynopticView()
 }
 
 
-// creates the container to be placed indide the scrool area
+// Creates the container to be placed inside the scrool area from the main synoptic
 QWidget* SingleLevelCarousel::createSynopticContainer()
 {
    int upperBackNr, upperFrontNr, maxBucketsPerLine;
@@ -78,6 +80,7 @@ QWidget* SingleLevelCarousel::createSynopticContainer()
 
    m_bucketWidth = m_bucketsAvailableWidth/maxBucketsPerLine;
 
+   // Create the two lines
    // IMPORTANT : The creation order is important
    m_frontLine = createCarouselLine( upperFrontNr );
    m_backLine = createCarouselLine( upperBackNr );
@@ -157,13 +160,11 @@ QWidget *SingleLevelCarousel::createCarouselLine(int nb_buckets)
 }
 
 
-// Creates 2 lines with curbed widgets on their ends
+// Creates 2 curbed widgets and place them at the end of the 2 lines and a space in the middle
 QWidget* SingleLevelCarousel::createLevelContainer()
 {
-    QWidget *line1, *line2;
-    const int levelWidgetWidth = 2*m_synopticAvailableWidth -1;
+    const int levelWidgetWidth = 2 * m_synopticAvailableWidth - 1;
     const int levelWidgetHeight = 2 * CAROUSEL_LINE_HEIGHT + CAROUSEL_LINES_SPACING;
-    int containerWidth;
 
     QWidget* levelWidget = new QWidget(this);
     levelWidget->setMaximumSize(levelWidgetWidth , levelWidgetHeight);
@@ -173,25 +174,21 @@ QWidget* SingleLevelCarousel::createLevelContainer()
     levelWidgetLayout->setMargin(0);
     levelWidgetLayout->setSpacing(0);
 
-    line1 = m_backLine;
-    line2 = m_frontLine;
-    containerWidth = m_lineWidth;
-
-    // Has 2 lines and a middle separator
+    // Creates te container for the 2 lines and a middle separator
     QWidget* linesContainer = new QWidget(levelWidget);
-    linesContainer->setFixedSize( containerWidth , CAROUSEL_LINE_HEIGHT*2 + CAROUSEL_LINES_SPACING);
+    linesContainer->setFixedSize( m_lineWidth , CAROUSEL_LINE_HEIGHT*2 + CAROUSEL_LINES_SPACING);
+
     QWidget* linesSeparator = new QWidget(linesContainer);
-    linesSeparator->setFixedSize( containerWidth , CAROUSEL_LINES_SPACING);
+    linesSeparator->setFixedSize( m_lineWidth , CAROUSEL_LINES_SPACING);
     linesSeparator->setAttribute(Qt::WA_TransparentForMouseEvents);
     linesSeparator->setAttribute(Qt::WA_TranslucentBackground);
 
-    // the container having the 2 lines separated by a separator widget
     linesContainer->setLayout(new QVBoxLayout());
     linesContainer->layout()->setMargin(0);
     linesContainer->layout()->setSpacing(0);
-    linesContainer->layout()->addWidget(line1);
+    linesContainer->layout()->addWidget(m_backLine);
     linesContainer->layout()->addWidget(linesSeparator);
-    linesContainer->layout()->addWidget(line2);
+    linesContainer->layout()->addWidget(m_frontLine);
 
     SemicircleWidgetAlt* leftCurves = new SemicircleWidgetAlt(levelWidget, CAROUSEL_LINE_HEIGHT-2, true);
     leftCurves->setFixedSize(CAROUSEL_CURVES_WIDTH , CAROUSEL_LINE_HEIGHT*2 + CAROUSEL_LINES_SPACING);
@@ -206,12 +203,10 @@ QWidget* SingleLevelCarousel::createLevelContainer()
     levelWidgetLayout->insertWidget(1,linesContainer);
     linesContainer->raise();
 
-    int spacingWidth = levelWidgetWidth - containerWidth - 2*CAROUSEL_CURVES_WIDTH;
+    int spacingWidth = levelWidgetWidth - m_lineWidth - 2*CAROUSEL_CURVES_WIDTH;
 
     if ( spacingWidth > 0 )
-    {
         levelWidgetLayout->insertSpacing(0, spacingWidth);
-    }
 
     // Mask the interior
     QRegion levelWidgetRegion = QRegion(QRect(0, 0, levelWidgetWidth , height()));
