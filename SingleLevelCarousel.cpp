@@ -1,4 +1,5 @@
 #include "SingleLevelCarousel.h"
+#include "SemicircleWidgetAlt.h"
 
 static const int CAROUSEL_LINE_HEIGHT              = 40;
 static const int CAROUSEL_CURVES_WIDTH             = 80;

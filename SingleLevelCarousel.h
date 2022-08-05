@@ -5,14 +5,18 @@
 #include <QHBoxLayout>
 #include <QScrollArea>
 #include <QScrollBar>
-#include "SemicircleWidgetAlt.h"
 #include "RectangleWidget.h"
+
+namespace CarouselSL
+{
 
 enum class ConveyorSide
 {
    FRONT  = 0,
    BACK = 1
 };
+
+}
 
 class SingleLevelCarousel: public QWidget
 {

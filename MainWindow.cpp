@@ -1,5 +1,6 @@
 #include "MainWindow.h"
 #include "SingleLevelCarousel.h"
+#include "BasicCarousel.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -7,7 +8,9 @@ MainWindow::MainWindow(QWidget *parent)
 
     setGeometry(QRect(0, 0, 800, 500));
 
-    SingleLevelCarousel* carousel = new SingleLevelCarousel(QRect(20, 20, 740, 182), 400, this);
+    //SingleLevelCarousel* singleLevelCarousel = new SingleLevelCarousel(QRect(20, 20, 740, 182), 400, this);
+
+    BasicCarousel* carousel = new BasicCarousel(QRect(20, 20, 740, 182), 400, this);
 
 }
 
