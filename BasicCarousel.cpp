@@ -3,7 +3,7 @@
 #include <QDebug>
 
 static const int ITERATION_NB = 100;
-static const int ITERATION_STEP = 1;
+static const int ITERATION_STEP = 2;
 
 BasicCarousel::BasicCarousel(const QRect geoRect, const int nbBuckets, QWidget *parent)
     : QWidget{parent},
