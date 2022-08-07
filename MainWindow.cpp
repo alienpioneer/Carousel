@@ -10,7 +10,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     //SingleLevelCarousel* singleLevelCarousel = new SingleLevelCarousel(QRect(20, 20, 740, 182), 400, this);
 
-    BasicCarousel* carousel = new BasicCarousel(QRect(20, 20, 740, 182), 400, this);
+    BasicCarousel* carousel = new BasicCarousel(QRect(20, 20, 740, 150), 60, this);
 
 }
 

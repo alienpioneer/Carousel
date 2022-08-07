@@ -118,18 +118,10 @@ QWidget *SingleLevelCarousel::createCarouselLine(int nb_buckets)
         RectangleWidget* bucket = new RectangleWidget(this);
 
         nb_oversizeBuckets--;
-        if (nb_oversizeBuckets > 0)
-        {
+        if (nb_oversizeBuckets > 0 || nb_oversizeBuckets > nb_buckets)
             bucketWidth = m_bucketWidth + 1;
-        }
-        else if (nb_oversizeBuckets > nb_buckets)
-        {
-            bucketWidth = m_bucketWidth + 1;
-        }
         else
-        {
             bucketWidth = m_bucketWidth;
-        }
 
         bucket->setFixedHeight(CAROUSEL_LINE_HEIGHT);
         bucket->setFixedWidth(bucketWidth);

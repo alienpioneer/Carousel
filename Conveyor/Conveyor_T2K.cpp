@@ -61,6 +61,10 @@ void TrayBase:: redraw()
         update();
         m_previousColor = m_color;
     }
+    else if (isVisible() && m_text != "")
+    {
+        update();
+    }
 }
 
 void TrayBase::paintEvent( QPaintEvent* event )
@@ -159,22 +163,22 @@ void BucketPlate::setState(BucketState state)
                        " border:1px solid black;";
         break;
     case BucketState::EMPTY:
-        m_color = QColor("#FFF");
+        m_color = QColor(0xFF,0xFF,0xFF);
         break;
     case BucketState::INJECTED:
-        m_color = QColor("#99CCFF");
+        m_color = QColor(0x99,0xCC,0xFF);
         break;
     case BucketState::SORTED:
-        m_color = QColor("#73E600");
+        m_color = QColor(0x73,0xE6,0x00);
         break;
     case BucketState::REJECTED:
-        m_color = QColor("#FF9D3B");
+        m_color = QColor(0xFF,0x9D,0x3B);
         break;
     case BucketState::FAILURE:
-        m_color = QColor("#E43434");
+        m_color = QColor(0xE4,0x34,0x34);
         break;
     case BucketState::DISABLED:
-        m_color = QColor("#808080");
+        m_color = QColor(0x80,0x80,0x80);
         m_previousState = m_state;
         setDisabled(true);
         break;
