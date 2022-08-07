@@ -38,6 +38,7 @@ private:
     int   CAROUSEL_LINES_SPACING;
 
     int   m_bcsPosition;
+    int   m_previousBcsPosition;
 
     int   m_bucketsAvailableWidth;
 

@@ -2,13 +2,14 @@
 #include <QHBoxLayout>
 #include <QDebug>
 
-static const int ITERATION_NB = 10;
+static const int ITERATION_NB = 100;
 static const int ITERATION_STEP = 1;
 
 BasicCarousel::BasicCarousel(const QRect geoRect, const int nbBuckets, QWidget *parent)
     : QWidget{parent},
       NB_BUCKETS(nbBuckets),
       m_bcsPosition(1),
+      m_previousBcsPosition(0),
       m_timer(new QTimer(this))
 {
     this->setGeometry(geoRect);
@@ -30,18 +31,21 @@ BasicCarousel::BasicCarousel(const QRect geoRect, const int nbBuckets, QWidget *
 }
 
 
-// WARNING : Each iteration is building from previous iteration
-// Need offset from previous iteration
 void BasicCarousel::updateBuckets()
 {
     m_buffer.clear();
     BucketPlateData data;
 
+    // WARNING : Each iteration is building up from previous iteration
+    // Need offset from previous iteration
+    int posOffset = m_bcsPosition - m_previousBcsPosition;
+    //qDebug() <<"Pos offset: "<< posOffset;
+
     for (int i = 0; i < NB_BUCKETS; i++)
     {
         // a[(index+offset)%N] - circular buffer
-        data.state = m_buckets[(i+m_bcsPosition-1)%NB_BUCKETS]->state();
-        data.id = m_buckets[(i+m_bcsPosition-1)%NB_BUCKETS]->id();
+        data.state = m_buckets[(i+posOffset-1)%NB_BUCKETS]->state();
+        data.id = m_buckets[(i+posOffset-1)%NB_BUCKETS]->id();
 
         m_buffer.append(data);
     }
@@ -62,6 +66,7 @@ void BasicCarousel::on_timer()
     {
         m_bcsPosition += ITERATION_STEP;
         updateBuckets();
+        m_previousBcsPosition = m_bcsPosition;
     }
 }
 
