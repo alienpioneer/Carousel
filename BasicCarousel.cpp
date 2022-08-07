@@ -2,7 +2,7 @@
 #include <QHBoxLayout>
 #include <QDebug>
 
-static const int ITERATION_NB = 100;
+static const int ITERATION_NB = 10;
 static const int ITERATION_STEP = 1;
 
 BasicCarousel::BasicCarousel(const QRect geoRect, const int nbBuckets, QWidget *parent)
@@ -30,6 +30,8 @@ BasicCarousel::BasicCarousel(const QRect geoRect, const int nbBuckets, QWidget *
 }
 
 
+// WARNING : Each iteration is building from previous iteration
+// Need offset from previous iteration
 void BasicCarousel::updateBuckets()
 {
     m_buffer.clear();
